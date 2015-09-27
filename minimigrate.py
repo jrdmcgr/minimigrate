@@ -3,12 +3,16 @@ MiniMigrate: a simple migration tool
 """
 from __future__ import print_function
 import imp
+import logging
 import os
 import re
+import sys
 
 import pathlib
 from sqlalchemy import create_engine
 from sqlalchemy import text
+
+logging.basicConfig(stream=sys.stderr, format='%(message)s')
 
 
 class MigrationFile(object):
@@ -39,12 +43,11 @@ class MigrationFile(object):
         self._invoke('downgrade', *args, **kw)
 
     def is_valid(self):
+        """Migration modules must have an upgrade and a downgrade function"""
         try:
             assert callable(self.module.upgrade)
             assert callable(self.module.downgrade)
         except AssertionError:
-            print('Migration file %s needs an upgrade and downgrade funtion.' 
-                    % self.path.name)
             return False
         return True
 
@@ -98,7 +101,11 @@ class Migrator(object):
         if target_version is None:
             target_version = self.migrations.latest_version()
         current_version = self.schema_version.get()
-        print('current = %s target = %s' % (current_version, target_version))
+
+        if target_version == current_version:
+            logging.warning('Database version is already at v%s' % target_version)
+            return
+
         migrations = self.migrations.filtered_migrations(current_version, target_version)
         with self.engine.begin() as connection:
             for migrate_method in migrations:
