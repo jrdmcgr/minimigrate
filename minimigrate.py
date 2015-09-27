@@ -143,7 +143,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('database_uri')
     parser.add_argument('migrations_directory')
-    parser.add_argument('-v', '--version', default=None)
+    parser.add_argument('-v', '--version', default=None, type=int)
     args = parser.parse_args()
     migrator = Migrator(args.database_uri, args.migrations_directory)
     migrator.migrate(args.version)
