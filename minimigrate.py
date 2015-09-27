@@ -51,17 +51,14 @@ class MigrationFile(object):
 
 class Migrations(object):
     """Get migrations and filter them based on current and target versions"""
-    def __init__(self, path, pattern=None):
-        if pattern is None:
-            pattern = '^v(?P<version>\d+)_.*.py$'
+    def __init__(self, path='migrations', pattern='^v(?P<version>\d+)_.*.py$'):
         self.migrations = self.get_migrations(path, pattern)
         self.versions = sorted(self.migrations.keys())
 
     def latest_version(self):
         return self.versions[-1]
 
-    @staticmethod
-    def get_migrations(path='migrations', pattern='^v(?P<version>\d+)_.*.py$'):
+    def get_migrations(self, path, pattern):
         migrations = {}
         for file_path in os.listdir(path):
             if not re.match(pattern, file_path):

@@ -38,7 +38,8 @@ class TestMigrationFile(unittest.TestCase):
 
 class TestMigrations(unittest.TestCase):
     def test_get_migrations(self):
-        results = Migrations.get_migrations(MIGRATIONS)
+        migrations = Migrations(MIGRATIONS)
+        results = migrations.migrations
         assert sorted(results.keys()) == [1, 2, 3]
         for version, migration in results.items():
             assert migration.is_valid()
