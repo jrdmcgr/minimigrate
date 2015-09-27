@@ -1,2 +1,6 @@
+build
+dist
+minimigrate.egg-info/
 .DS_Store
+.coverage
 *.pyc

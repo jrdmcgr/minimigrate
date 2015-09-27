@@ -134,7 +134,7 @@ class SchemaVersion(object):
         self.engine.execute(self.queries['update'], version=version)
 
 
-if __name__ == '__main__':
+def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('database_uri')
@@ -143,3 +143,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     migrator = Migrator(args.database_uri, args.migrations_directory)
     migrator.migrate(args.version)
+
+
+if __name__ == '__main__':
+    main()
+

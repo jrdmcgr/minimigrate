@@ -3,9 +3,7 @@ import os
 import unittest
 import mock
 from nose.tools import eq_
-
 from sqlalchemy import create_engine
-
 from minimigrate import *
 
 DB_URI = 'sqlite:///:memory:'

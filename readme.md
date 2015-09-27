@@ -30,12 +30,13 @@ def downgrade(conn):
 
 - Work like Ruby on Rails' Active Record Migrations
 - Integrate with an ORM
-- Magically generate migrations
+- Magically generate migrations by introspection
 
 
 ## Testing
 
 Run `nosetests` in the minimigrate directory.
+Run `nosetests --with-coverage --cover-package=minimigrate` to see code coverage.
 
 
 ## TODO
@@ -43,14 +44,11 @@ Run `nosetests` in the minimigrate directory.
 This is a work in progress. Below are the things left to do for v1.
 
 - Finish testing the Migrations class
-- CLI
-    - migrate multiple databases
-    - run up or down for a single migration
-    - run up or down to target version
-- better docstrings
-- more documentation, examples
-- setup.py
-- push up to PyPI
-- Better error handling for edge cases
-- Generate SQL output instead of connecting to the database
+- Additional CLI options
+    - Migrate multiple databases (accept multiple URIs)
+    - Execute a single migration, up or down
+- Better docstrings
+- More documentation and examples
+- Optionally generate SQL output instead of connecting to the database
+- Generate a new migration file with the `upgrade` and `downgrade` functions
 
