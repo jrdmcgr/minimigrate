@@ -45,7 +45,6 @@ class TestMigrations(unittest.TestCase):
             assert migration.is_valid()
 
 
-
 class TestMigrate(unittest.TestCase):
     def setUp(self):
         self.migrator = Migrator(DB_URI, MIGRATIONS)

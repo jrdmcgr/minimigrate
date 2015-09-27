@@ -2,9 +2,25 @@
 
 MiniMigrate is a simple schema migration too written in Python and intended for projects that want to mangage migrations with simple SQL statements.
 
-- Migrations are Python files in a directory
+
+# Installation
+
+`pip install minimigrate`
+
+
+# Usage Example
+
+The following will run all the upgrade migrations from the current version to the latest version.
+
+`minimigrate mysql://user:pass@hostname/dbname /path/to/migrations`
+
+
+# About
+
+- Migrations are Python modules containing an `upgrade` and a `downgrade` function
 - The file name must be like `v001_some_name.py`
-- The migrations will be run up or down in order
+    - `001` is the version number and will be cast to an integer
+    - The leading `v` is necessary since Python modules can't begin with a number
 - A migration file looks like this:
 
 ```python
@@ -22,8 +38,7 @@ def downgrade(conn):
 
 ```
 
-- `conn` is a SQLAlchemy connection passed into the the `upgrade` and `downgrade` functions
-- A migration file must have an `upgrade` and `downgrade` function
+- A table named `schema_info` will be created in the database to track the version number.
 
 
 ## Non Goals
